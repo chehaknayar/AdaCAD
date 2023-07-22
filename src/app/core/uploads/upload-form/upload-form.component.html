@@ -1,19 +1,88 @@
 <div class="upload-container">
+  <!-- Add the file input for patterns -->
+  <input type="file" (change)="detectFiles($event)">
+  <div *ngIf="!uploading" class="upload-button">
+    <button mat-button color="primary" [disabled]="!selectedFiles"
+      (click)="uploadSingle()">
+      Upload
+    </button>
+  </div>
 
-   <label>
-      <input type="file" (change)="detectFiles($event)">
-   </label>
+  <h3 style="margin: 0 10% 0 0">OR</h3>
 
-   <div *ngIf="!uploading" class="upload-button">
-      <button mat-button
-            color="primary"
-            [disabled]="!selectedFiles"
-            (click)="uploadSingle();">
-            Upload
-      </button>
-   </div>
-   <div *ngIf="uploading" class="progress-bar">
-      <mat-progress-bar mode="determinate" [value]="upSvc.progress"></mat-progress-bar>
-   </div>
+  <div>
+    <!-- Add the search input for pattern library -->
+    <label>
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Search pattern library" class="search-bar"
+        [matAutocomplete]="auto">
+    </label>
+    <input type="file" (change)="uploadDocument($event)">
+   
+    <mat-autocomplete #auto="matAutocomplete" visibility="hidden">
+      <ng-container *ngFor="let pattern of filteredPatternLibrary">
+        <mat-option *ngFor="let tag of pattern.tags" [value]="tag">
+          {{ tag }}
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+
+
+    <!-- Display the filtered patterns section -->
+    <div *ngIf="patternLibraryFiltered && patternLibraryFiltered.length > 0">
+      <!-- <h2>Filtered Patterns:</h2> -->
+      <div class="pattern-library">
+        <div *ngFor="let pattern of patternLibraryFiltered" class="pattern-item">
+          <div class="pattern-image">
+            <img [src]="getPatternImageUrl(pattern)" alt="Pattern Image" class="image-size" (click)="uploadSingle(pattern)"
+              tooltip="Click to upload">
+            <div class="tag-list">
+              <ng-container *ngIf="searchQuery.trim() !== ''">
+                <span *ngFor="let tag of pattern.tags" [class.match]="isTagMatch(tag)">
+                  {{ tag }}
+                </span>
+              </ng-container>
+            </div>
+            <div class="progress-bar">
+              <mat-progress-bar mode="determinate" [value]="upSvc.progress"></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display the filtered colors section -->
+    <!-- <div *ngIf="colorLibraryFiltered && colorLibraryFiltered.length > 0">
+      <h2>Filtered Colors:</h2>
+      <div class="pattern-library">
+        <div *ngFor="let color of colorLibraryFiltered" class="color-item">
+          <div class="color-image">
+            <img [src]="getPatternImageUrl(color)" alt="Color Image" class="image-size" (click)="uploadSingle(color)"
+              tooltip="Click to upload">
+            <div class="tag-list">
+              <ng-container *ngIf="searchQuery.trim() !== ''">
+                <span *ngFor="let tag of color.tags" [class.match]="isTagMatch(tag)">
+                  {{ tag }}
+                </span>
+              </ng-container>
+            </div>
+            <div class="progress-bar">
+              <mat-progress-bar mode="determinate" [value]="upSvc.progress"></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Display a message when no patterns or colors are found -->
+    <!-- <div *ngIf="patternLibraryFiltered && patternLibraryFiltered.length === 0 && colorLibraryFiltered && colorLibraryFiltered.length === 0">
+      <p>No patterns or colors found matching the search query.</p>
+    </div>
+  </div> -->
+
+  <!-- Add the file input for documents -->
+  
+
+  
+  <div *ngIf="uploading" class="progress-bar">
+    <mat-progress-bar mode="determinate" [value]="upSvc.progress"></mat-progress-bar>
+  </div>
 </div>
-<canvas #uploadImage class="hidden"></canvas>

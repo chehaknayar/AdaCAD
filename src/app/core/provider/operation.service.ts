@@ -4335,17 +4335,28 @@ export class OperationService {
         max: 10000,
         value: 200,
         dx: 'resize the input image to the height specified'
+    },
+    {name: 'To Detect',
+        type: 'select',
+        selectlist: [{name: 'Texture', value: 0},{name: 'Object', value: 1}, {name: 'Emotion', value: 2}],
+        min: 1,
+        max: 10000,
+        value: 200,
+        dx: 'resize the input image to the height specified'
     }
       ],
       perform: (op_inputs: Array<OpInput>)=> {
           
         //split the inputs into the input associated with 
+        console.log("performing imagemap", op_inputs.filter(el => el.op_name === "imagemap"))
+        console.log("performing imagemap", op_inputs.filter(el => el.op_name === "child"))
         const parent_inputs: Array<OpInput> = op_inputs.filter(el => el.op_name === "imagemap");
         const child_inputs: Array<OpInput> = op_inputs.filter(el => el.op_name === "child");
 
         const image_data = this.is.getImageData(parent_inputs[0].params[0]);
         const res_w = parent_inputs[0].params[1];
         const res_h = parent_inputs[0].params[2];
+        console.log("image data", image_data);
 
 
         if(image_data === undefined) return Promise.resolve([]);
@@ -4358,8 +4369,10 @@ export class OperationService {
           fliped_image.unshift(row);
         })
 
-
+        
         const color_to_drafts = data.colors.map((color, ndx) => {
+          console.log('color:',color)
+          console.log('child inputs', child_inputs)
           const child_of_color = child_inputs.find(input => (input.params.findIndex(param => param === color) !== -1));
           if(child_of_color === undefined) return {color: color, draft: null};
           else return {color: color, draft: child_of_color.drafts[0]};
