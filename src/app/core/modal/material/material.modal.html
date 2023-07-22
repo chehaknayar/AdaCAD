@@ -12,10 +12,10 @@
 
 
 <mat-accordion>
-<ng-container *ngFor="let shuttle of ms.materials">
+  <ng-container *ngFor="let shuttle of ms.materials; let i = index">
 
   <form #materialForm="ngForm">
-    <mat-expansion-panel >
+    <mat-expansion-panel *ngIf="shuttle">
 
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -27,11 +27,19 @@
       </mat-expansion-panel-header>
       
    
-      <mat-form-field  class="is-fullwidth">
-      <input matInput (colorPickerChange) = 'change()' placeholder="Color" class="colorpicker" [(colorPicker)]="shuttle.color" 
-      [style.background]="shuttle.color" name="color" [(ngModel)]="shuttle.color"/>
+      <mat-form-field class="is-fullwidth">
+        <input matInput
+          (colorPickerChange)="updateColorPicker($event)"
+          placeholder="Color"
+          class="colorpicker"
+          [(colorPicker)]="shuttle.color"
+          [style.background]="shuttle.color"
+          name="color"
+          [(ngModel)]="shuttle.color"
+          id="colorPickerInput" />
       </mat-form-field>
-
+      
+       
       <mat-form-field  class="is-fullwidth">
       <input matInput placeholder="Material Name" name="name" [(ngModel)]="shuttle.name">
     </mat-form-field>
@@ -72,7 +80,7 @@
   <div class="is-fullwidth">
       <mat-form-field class="is-fullwidth">
       <mat-label>Add Notes</mat-label>
-      <textarea matInput [(ngModel)]="shuttle.notes" [ngModelOptions]="{standalone: true}">{{shuttle.notes}}</textarea>  	
+      <textarea matInput [(ngModel)]="shuttle.notes" [ngModelOptions]="{standalone: true}">{{shuttle.color}}</textarea>  	
     </mat-form-field>
   </div>
 
@@ -107,12 +115,24 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
 
+  <mat-form-field class="is-fullwidth">
+    <input matInput
+      #colorInput
+      [ngModel]="colorKeyword"
+      (ngModelChange)="updateColorPicker(colorInput.value)"
+      placeholder="Enter a color keyword (e.g., calm, clouds, angry)"
+      name="colorKeyword"
+      [(ngModel)]="colorKeyword"
+      id="colorPickerInput" />
+  </mat-form-field>
+
+      
       <mat-form-field  class="is-fullwidth">
         <input matInput (colorPickerChange) = 'change()' placeholder="Color" class="colorpicker" [(colorPicker)]="newshuttle.color" 
         [style.background]="newshuttle.color" name="color" [(ngModel)]="newshuttle.color"/>
-        </mat-form-field>
-
-        <mat-form-field  class="is-fullwidth">
+      </mat-form-field>
+      {{newshuttle.color}}
+      <mat-form-field  class="is-fullwidth">
         <input matInput placeholder="Material Name" name="name" [(ngModel)]="newshuttle.name">
       </mat-form-field>
 
