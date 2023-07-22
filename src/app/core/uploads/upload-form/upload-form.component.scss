@@ -1,9 +1,37 @@
 .upload-container{
     display: flex;
     flex-direction: row;
+    position: relative;
+    height: inherit;
 }
 
 .progress-bar,
 .upload-button{
-    width: 90px;
+    width: inherit;
 }
+
+.image-size {
+    width: 80px; /* Set the desired width */
+    height: 80px; /* Set the desired height */
+    object-fit: cover; /* Adjust the object-fit property as needed */
+    border: 1px solid black;
+    margin: 10px;
+  }
+
+.library{
+    margin: 50% 0 0 -50%;
+    position: relative;
+}
+
+.pattern-library{
+    height: 150px;
+    overflow: scroll;
+    margin: 15px 0 0 0;
+    border: 1px solid black;
+}
+
+.match {
+    background-color: yellow;
+    // visibility: hidden;
+  }
+  
