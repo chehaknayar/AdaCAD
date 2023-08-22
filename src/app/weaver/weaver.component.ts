@@ -112,6 +112,8 @@ export class WeaverComponent implements OnInit {
     const draft = this.tree.getDraft(this.id);
     const loom = this.tree.getLoom(this.id);
     const loom_settings = this.tree.getLoomSettings(this.id);
+    // const textInput = this.tree.getTextInput(this.id);
+    // const aliterationPattern = this.tree.getAliterationPattern(this.id); //pattern to be used for aliteration
 
 
     this.weaveRef.onNewDraftLoaded(draft, loom, loom_settings);

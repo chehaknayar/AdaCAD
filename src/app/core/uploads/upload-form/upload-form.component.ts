@@ -77,16 +77,16 @@ export class UploadFormComponent implements OnInit {
         formData.append('image', file);
         
         // Make the HTTP POST request to the Colormind API
-        this.httpClient.post('http://colormind.io/api/', obj.data.colors)
-          .toPromise()
-          .then((response: any) => {
-            const colorPalette = response.result;
-            console.log('Colormind API response:', colorPalette);
-            // Perform any additional actions with the color palette
-          })
-          .catch((error) => {
-            console.error('Colormind API error:', error);
-          });
+        // this.httpClient.post('http://colormind.io/api/', obj.data.colors)
+        //   .toPromise()
+        //   .then((response: any) => {
+        //     const colorPalette = response.result;
+        //     console.log('Colormind API response:', colorPalette);
+        //     // Perform any additional actions with the color palette
+        //   })
+        //   .catch((error) => {
+        //     console.error('Colormind API error:', error);
+        //   });
   
         this.onData.emit(obj);
         this.uploading = false;
@@ -98,8 +98,20 @@ export class UploadFormComponent implements OnInit {
   loadPatternLibrary() {
     const folderUrl = 'assets/library';
     const files = [
-      { filename: 'pattern1.png', tags: ['anger', 'aggression', 'nervousness'], kind: 'pattern' },
-      { filename: 'pattern2.png', tags: ['happy', 'color', 'vibrance'], kind: 'pattern' },
+      { filename: 'pattern1.png', tags: ['anger', 'aggression', 'nervousness', 'uncertainty'], kind: 'pattern' },
+      { filename: 'pattern2.png', tags: ['indifference', 'distraction', 'nostalgia'], kind: 'pattern' },
+      { filename: 'pattern3.png', tags: ['anger', 'contempt', 'amazement'], kind: 'pattern' },
+      { filename: 'pattern4.png', tags: ['affection', 'joy','distraction'], kind: 'pattern' },
+      { filename: 'pattern5.png', tags: ['uncertainty', 'apprehension', 'intrigue'], kind: 'pattern' },
+      { filename: 'pattern6.png', tags: ['joy', 'excitement', 'love', 'affection'], kind: 'pattern' },
+      { filename: 'pattern7.png', tags: ['vigilance', 'trust', 'serenity'], kind: 'pattern' },
+      { filename: 'pattern8.png', tags: ['nervousness', 'uncertainty', 'apprehension'], kind: 'pattern' },
+      { filename: 'pattern9.png', tags: ['rage', 'grief', 'disturbance', 'uncertainty'], kind: 'pattern' },
+      { filename: 'pattern10.png', tags: ['fear', 'nervousness', 'distraction'], kind: 'pattern' },
+      { filename: 'pattern11.png', tags: [ 'trust', 'acceptanc', 'optimism', 'serenity'], kind: 'pattern' },
+      { filename: 'pattern12.png', tags: ['serenity', 'love', 'joy', 'affection'], kind: 'pattern' },
+      { filename: 'pattern21.png', tags: ['happy', 'color', 'vibrance'], kind: 'pattern' },
+      { filename: 'active.png', tags: ['active'], kind: 'pattern' },
     ]
   
     const filePromises = files.map((file) => {

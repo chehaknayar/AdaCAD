@@ -514,6 +514,7 @@ export interface DynamicOperation {
   inlets: Array<OperationInlet>,
   dx: string,
   old_names: Array<string>,
+  tags: Array<string>,
   perform: (op_inputs: Array<OpInput>) => Promise<Array<Draft>>;
 }
 
@@ -549,6 +550,7 @@ export interface Operation {
     params: Array<OperationParam>,
     inlets: Array<OperationInlet>,
     old_names: Array<string>,
+    tags: Array<string>,
     perform: (op_inputs: Array<OpInput>) => Promise<Array<Draft>>
  }
 
@@ -610,6 +612,8 @@ export type OpNode = BaseNode & {
   draft: Draft,
   loom: Loom,
   loom_settings: LoomSettings
+  text_input: String
+  alliteration_pattern: String
  }
 
 

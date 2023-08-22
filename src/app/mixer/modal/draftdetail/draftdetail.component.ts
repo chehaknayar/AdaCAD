@@ -137,6 +137,7 @@ export class DraftdetailComponent implements OnInit {
   }
 
   public inkActionChange(name: string){
+    console.log('name:',name)
     this.ink = name;
   }
 

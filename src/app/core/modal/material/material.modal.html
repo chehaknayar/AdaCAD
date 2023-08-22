@@ -39,7 +39,6 @@
           id="colorPickerInput" />
       </mat-form-field>
       
-       
       <mat-form-field  class="is-fullwidth">
       <input matInput placeholder="Material Name" name="name" [(ngModel)]="shuttle.name">
     </mat-form-field>
@@ -119,31 +118,32 @@
     <input matInput
       #colorInput
       [ngModel]="colorKeyword"
-      (ngModelChange)="updateColorPicker(colorInput.value)"
+      
+      (ngModelChange)="updateColorPicker(colorInput.value, 'single')"
       placeholder="Enter a color keyword (e.g., calm, clouds, angry)"
       name="colorKeyword"
-      [(ngModel)]="colorKeyword"
+      [(ngModel)]="newshuttle.name"
       id="colorPickerInput" />
   </mat-form-field>
 
       
-      <mat-form-field  class="is-fullwidth">
-        <input matInput (colorPickerChange) = 'change()' placeholder="Color" class="colorpicker" [(colorPicker)]="newshuttle.color" 
-        [style.background]="newshuttle.color" name="color" [(ngModel)]="newshuttle.color"/>
-      </mat-form-field>
-      {{newshuttle.color}}
-      <mat-form-field  class="is-fullwidth">
-        <input matInput placeholder="Material Name" name="name" [(ngModel)]="newshuttle.name">
-      </mat-form-field>
+  <mat-form-field  class="is-fullwidth">
+    <input matInput (colorPickerChange) = 'change()' placeholder="Color" class="colorpicker" [(colorPicker)]="newshuttle.color" 
+    [style.background]="newshuttle.color" name="color" [(ngModel)]="newshuttle.color"/>
+  </mat-form-field>
+  {{newshuttle.color}}
+  <mat-form-field  class="is-fullwidth">
+    <input matInput placeholder="Material Name" name="name" [(ngModel)]="newshuttle.name">
+  </mat-form-field>
 
       
-      <mat-form-field class="is-fullwidth">
-        <mat-select placeholder="Yarn Type" name="type" [(ngModel)]="newshuttle.type">
-          <mat-option *ngFor="let type of types" [value]="type.value">
-            {{ type.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field class="is-fullwidth">
+    <mat-select placeholder="Yarn Type" name="type" [(ngModel)]="newshuttle.type">
+      <mat-option *ngFor="let type of types" [value]="type.value">
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
     <div class="is-fullwidth">
         <mat-form-field class="form-field">
@@ -175,7 +175,9 @@
       <textarea matInput [(ngModel)]="newshuttle.notes" [ngModelOptions]="{standalone: true}">{{newshuttle.notes}}</textarea>  	
     </mat-form-field>
 
+    <button mat-flat-button color="secondary" (click)="updateColorPicker(colorInput.value, 'palette')"> Add Color Palette</button>
     <button mat-flat-button color="primary" (click)="addNewShuttle()"> Add This Material</button>
+    
     </div>
   
 

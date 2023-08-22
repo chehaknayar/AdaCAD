@@ -63,6 +63,7 @@ export class OperationService {
         dx: 'the draft with which you would like to fill this rectangle',
         num_drafts: 1
       }],
+      tags: ['basic', 'shapes'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'rectangle');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -100,6 +101,7 @@ export class OperationService {
         dx: 'the draft you would like to clear',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'clear');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -140,6 +142,7 @@ export class OperationService {
           dx: 'the draft you would like to modify',
           num_drafts: 1
         }],
+        tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
         const parent_input = op_inputs.find(el => el.op_name == 'set unset');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -190,6 +193,7 @@ export class OperationService {
         dx: 'the draft you would like to modify',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'set down to unset');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -238,6 +242,7 @@ export class OperationService {
         num_drafts: 1
       }
     ],
+    tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'apply materials');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -303,6 +308,7 @@ export class OperationService {
         dx: 'the draft you would like to modify',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'rotate');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -438,6 +444,7 @@ export class OperationService {
           num_drafts: 1
         }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
        
 
@@ -510,6 +517,7 @@ export class OperationService {
           num_drafts: 1
         }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'splice in wefts');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -651,6 +659,7 @@ export class OperationService {
           num_drafts: 1
         }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'splice in warps');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -780,6 +789,7 @@ export class OperationService {
           num_drafts: 1
         }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'assign weft systems');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -871,6 +881,7 @@ export class OperationService {
           num_drafts: 1
         }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'assign warp systems');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -956,6 +967,7 @@ export class OperationService {
             num_drafts: 1
           }
         ],
+        tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'vertical cut');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -1035,6 +1047,7 @@ export class OperationService {
           num_drafts: 1
         }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
 
         const parent_input = op_inputs.find(el => el.op_name == 'selvedge');
@@ -1131,6 +1144,7 @@ export class OperationService {
       ],
       inlets: [
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
 
         const parent_input = op_inputs.find(el => el.op_name == 'number_to_draft');
@@ -1209,6 +1223,7 @@ export class OperationService {
         num_drafts: 1
       }
     ],
+    tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
 
         const parent_input = op_inputs.find(el => el.op_name == 'overlay, (a,b) => (a OR b)');
@@ -1311,6 +1326,7 @@ export class OperationService {
         }
       ],
       inlets: [],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'sine');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -1361,6 +1377,7 @@ export class OperationService {
         }
       ],
       inlets: [],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'sawtooth');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -1423,6 +1440,7 @@ export class OperationService {
         num_drafts: 1
       }
     ],
+    tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'set atop, (a, b) => a');
         const child_inputs = op_inputs.filter(el => el.op_name == 'child');
@@ -1511,6 +1529,7 @@ export class OperationService {
         num_drafts: 1
       }
     ],
+    tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
         const parent_input = op_inputs.find(el => el.op_name == 'knockout, (a, b) => (a XOR b)');
         const child_inputs = op_inputs.filter(el => el.op_name == 'child');
@@ -1597,6 +1616,7 @@ export class OperationService {
         num_drafts: 1
       }
     ],
+    tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'mask, (a,b) => (a AND b)');
         const child_inputs = op_inputs.filter(el => el.op_name == 'child');
@@ -1677,6 +1697,7 @@ export class OperationService {
         num_drafts: 1
       }
     ],
+    tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const child_inputs = op_inputs.filter(el => el.op_name == 'child');
@@ -1741,6 +1762,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with tabby',
         num_drafts: 1
       }],
+      tags: ['basic','smooth'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'tabby');
@@ -1818,6 +1840,7 @@ export class OperationService {
         },
       ],
       inlets: [],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'tabbyder');
@@ -1879,6 +1902,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with this twill',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'basket');
@@ -1949,6 +1973,7 @@ export class OperationService {
         dx: 'the draft to stretch',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'stretch');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -2007,6 +2032,7 @@ export class OperationService {
         dx: 'the draft to resize',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'resize');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -2084,6 +2110,7 @@ export class OperationService {
         dx: 'the draft to repeat within the margins',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'margin');
         const child_inputs = op_inputs.filter(el => el.op_name == 'child');
@@ -2175,6 +2202,7 @@ export class OperationService {
         dx: 'the draft to crop',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'crop');
@@ -2250,6 +2278,7 @@ export class OperationService {
         dx: 'the draft to trim',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
 
@@ -2326,6 +2355,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with this rib structure',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
       
@@ -2412,6 +2442,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with twill',
         num_drafts: 1
       }],
+      tags: ['basic', 'dramatic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'twill');
@@ -2484,6 +2515,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with this twill',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
 
@@ -2702,6 +2734,7 @@ export class OperationService {
         dx: 'the draft that describes the system ordering we will add input structures within',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
 
@@ -2842,6 +2875,7 @@ export class OperationService {
         dx: 'optional, define a custom weft material or system pattern here',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
                 
@@ -2950,6 +2984,7 @@ export class OperationService {
         }
       ],
       inlets: [],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
                 
@@ -3192,6 +3227,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with waffle',
         num_drafts: 1
       }],
+      tags: ['basic', 'shapes', 'diamonds'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'waffle');
@@ -3306,6 +3342,7 @@ export class OperationService {
         dx: 'the draft to make symmetric',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name === "makesymmetric");
@@ -3422,6 +3459,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with tabby',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'satin');
@@ -3495,6 +3533,7 @@ export class OperationService {
         }
       ],
       inlets: [],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name == 'shaded_satin');
@@ -3575,6 +3614,7 @@ export class OperationService {
         dx: 'the shape you would like to fill with random',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'random');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3620,6 +3660,7 @@ export class OperationService {
         dx: 'the draft to invert',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'invert');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3649,6 +3690,7 @@ export class OperationService {
         dx: 'the draft to flip horizontally',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'flip horiz');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3684,6 +3726,7 @@ export class OperationService {
         dx: 'the draft to flip vertically',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
         const parent_input = op_inputs.find(el => el.op_name == 'flip vert');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3723,6 +3766,7 @@ export class OperationService {
         dx: 'the draft to shift',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
         const parent_input = op_inputs.find(el => el.op_name == 'shift left');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3765,6 +3809,7 @@ export class OperationService {
         dx: 'the draft to shift',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'shift up');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3814,6 +3859,7 @@ export class OperationService {
         dx: 'the draft to slope',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'slope');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3863,6 +3909,7 @@ export class OperationService {
         dx: 'the draft to mirror',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         
         const parent_input = op_inputs.find(el => el.op_name == 'mirror');
@@ -3906,6 +3953,7 @@ export class OperationService {
         dx: 'the draft to create varients of',
         num_drafts: 1
       }], 
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'variants');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -3954,6 +4002,7 @@ export class OperationService {
         dx: 'the draft to bind',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'bind weft floats');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -4024,6 +4073,7 @@ export class OperationService {
         dx: 'the draft to bind',
         num_drafts: 1
       }], 
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name == 'bind warp floats');
         const child_input = op_inputs.find(el => el.op_name == 'child');
@@ -4087,6 +4137,7 @@ export class OperationService {
         dx: 'the drafts to layer (from top to bottom)',
         num_drafts: -1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
         const parent_input = op_inputs.find(el => el.op_name == 'layer');
         const child_inputs = op_inputs.filter(el => el.op_name == 'child');
@@ -4154,6 +4205,7 @@ export class OperationService {
           dx: 'automatically adjust the width and height of draft to ensure equal repeats (checked) or just assign to layers directly as provided'
         }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
           
 
@@ -4345,6 +4397,7 @@ export class OperationService {
         dx: 'resize the input image to the height specified'
     }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>)=> {
           
         //split the inputs into the input associated with 
@@ -4458,6 +4511,7 @@ export class OperationService {
         dx: 'the drafts to tile',
         num_drafts: -1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         //split the inputs into the input associated with 
         const parent_input = op_inputs.find(el => el.op_name === "tile");
@@ -4548,6 +4602,7 @@ export class OperationService {
         dx: 'the draft to tile in the chaos sequence',
         num_drafts: -1
       }],
+      tags: ['basic'],
       perform: async (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name === "chaos");
         const child_input = op_inputs.filter(el => el.op_name === "child");
@@ -4624,6 +4679,7 @@ export class OperationService {
         dx: 'the draft to erase blank rows from',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name === "erase blank rows");
         const child_input = op_inputs.find(el => el.op_name === "child");
@@ -4681,6 +4737,7 @@ export class OperationService {
         dx: 'optional, define a custom warp material or system pattern here',
         num_drafts: -1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name === "join top");
         const child_input = op_inputs.find(el => el.op_name === "child");
@@ -4771,6 +4828,7 @@ export class OperationService {
         dx: 'optional, define a custom weft material or system pattern here',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name === "join left");
@@ -4875,6 +4933,7 @@ export class OperationService {
         num_drafts: 1
       }
     ],
+    tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
       
         //split the inputs into the input associated with 
@@ -4977,6 +5036,7 @@ export class OperationService {
         dx: 'the draft to germanify',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
         const parent_input = op_inputs.find(el => el.op_name === "gemanify");
         const child_input= op_inputs.find(el => el.op_name === "child");
@@ -5043,6 +5103,7 @@ export class OperationService {
           dx: 'the draft to craclify',
           num_drafts: 1
         }],
+        tags: ['basic'],
         perform: (op_inputs: Array<OpInput>) => {
           const parent_input = op_inputs.find(el => el.op_name === "crackle-ify");
           const child_input= op_inputs.find(el => el.op_name === "child");
@@ -5099,6 +5160,7 @@ export class OperationService {
           dx: 'the drawdown from which to create threading, tieup and treadling data from',
           num_drafts: 1
         }],
+        tags: ['basic'],
         perform: (op_inputs: Array<OpInput>) => {
   
           const parent_input = op_inputs.find(el => el.op_name === "direct loom");
@@ -5166,6 +5228,7 @@ export class OperationService {
         dx: 'the drawdown from which to create threading, tieup and treadling data from',
         num_drafts: 1
       }],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
 
         const parent_input = op_inputs.find(el => el.op_name === "floor loom");
@@ -5250,6 +5313,7 @@ export class OperationService {
         num_drafts: 1
       }
       ],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
   
         const parent_input = op_inputs.find(el => el.op_name === "floor loom");
@@ -5338,6 +5402,7 @@ export class OperationService {
           num_drafts: 1
         }
         ],
+        tags: ['basic'],
         perform: (op_inputs: Array<OpInput>) => {
     
           const parent_input = op_inputs.find(el => el.op_name === "directdrawdown");
@@ -5425,6 +5490,7 @@ export class OperationService {
         }
       ],
       inlets: [],
+      tags: ['basic'],
       perform: (op_inputs: Array<OpInput>) => {
   
         const parent_input = op_inputs.find(el => el.op_name === "combos");
