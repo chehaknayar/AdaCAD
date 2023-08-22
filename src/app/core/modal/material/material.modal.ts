@@ -63,37 +63,46 @@ hexToRgb(hex: string): number[] | null {
   return [r, g, b];
 }
 
-async updateColorPicker(colorKeyword: string) {
+async updateColorPicker(colorKeyword: string, type: string) {
   console.log("shuttles",this.ms.getShuttles())
+  console.log("colorKeyword",colorKeyword)
+  console.log("type",type)
   
   const colorMap = {
     calm: '#3333CC',   // Blue
     clouds: '#CCCCCC', // Light Grey
     angry: '#FF0000',  // Red
-    // Add more color keywords and corresponding color values here
-    //add colors above in rgb format
-    //blue in rgb format
-
-
+    happy: '#FFFF00',  // Yellow
+    "fern leaves" : '#00FF00', // Green
+    "lavender flowers" : '#d2afff', // Lilac
+    heart : '#e57171', // Pink
+    sun :   '#fdd55e', //yellow
+    warmth : '#fa8812', //orange
+    serenity: '#6fa8dc', //blue
   };
 
+  
   // Get the color value corresponding to the entered keyword
   const keyword = colorKeyword.toLowerCase();
   console.log("keyword",keyword)
   const selectedColor = colorMap[keyword] || '#000000'; // Default to black if keyword not found
   
-  //as soon as a keyword is found, colormind finds th epalette and creates materials for that palette colors instantly Part 1/////////////
-  // if (colorMap[keyword]) {
-  //   const newColors = await this.getNewColorsFromAPI(); // Assuming this function returns a promise with the new colors
+  if (type == 'palette'){
+      //as soon as a keyword is found, colormind finds th epalette and creates materials for that palette colors instantly Part 1/////////////
+    if (colorMap[keyword]) {
+      const newColors = await this.getNewColorsFromAPI(); // Assuming this function returns a promise with the new colors
 
-  //   for (const color of newColors) {
-  //     this.newshuttle.color = color;
-  //     this.addNewShuttle();
-  //   }
-  // }
+      for (const color of newColors) {
+        this.newshuttle.color = color;
+        this.newshuttle.name = colorKeyword+'Palette';
+        this.addNewShuttle();
+      }
+    }
   //ends here/////////////
+  }
+  
 
-  // //colormind api inserts new shuttle with the color given for a keyword, when the keyword is found //////////////////
+  //colormind api inserts new shuttle with the color given for a keyword, when the keyword is found //////////////////
   if(colorMap[keyword]){
     var url = "http://colormind.io/api/";
     var data = {
@@ -118,17 +127,18 @@ async updateColorPicker(colorKeyword: string) {
   console.log("neww shuttle",this.newshuttle)
   if (this.newshuttle) {
       this.newshuttle.color = selectedColor;
+      this.newshuttle.name = colorKeyword;
   }
   console.log("new shuttle",this.newshuttle.color,this.hexToRgb(this.newshuttle.color))
  //to create a new shuttle of that color
+ if(type == 'palette'){
   this.addNewShuttle();
+ }
+  
   http.open("POST", url, true);
   http.send(JSON.stringify(data));
   }
   // // ends here
-  
-
-  
   
   //
   // Update the color picker's background to reflect the new color
@@ -143,28 +153,28 @@ async updateColorPicker(colorKeyword: string) {
   this.changeDetectorRef.detectChanges();
 }
 
-// //as soon as a keyword is found, colormind finds th epalette and creates materials for that palette colors instantly PArt 2//////////
-// async getNewColorsFromAPI(): Promise<string[]> {
-//   const url = "http://colormind.io/api/";
-//   const data = {
-//     model: "default",
-//     input: [this.hexToRgb(this.newshuttle.color), "N", "N", "N"],
-//   };
+//as soon as a keyword is found, colormind finds th epalette and creates materials for that palette colors instantly PArt 2//////////
+async getNewColorsFromAPI(): Promise<string[]> {
+  const url = "http://colormind.io/api/";
+  const data = {
+    model: "default",
+    input: [this.hexToRgb(this.newshuttle.color), "N", "N", "N"],
+  };
 
-//   return new Promise((resolve, reject) => {
-//     const http = new XMLHttpRequest();
-//     http.onreadystatechange = function () {
-//       if (http.readyState == 4 && http.status == 200) {
-//         const palette = JSON.parse(http.responseText).result;
-//         const newColors = palette.map((c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`);
-//         resolve(newColors);
-//       }
-//     };
-//     http.open("POST", url, true);
-//     http.send(JSON.stringify(data));
-//   });
-// }
-//ends here
+  return new Promise((resolve, reject) => {
+    const http = new XMLHttpRequest();
+    http.onreadystatechange = function () {
+      if (http.readyState == 4 && http.status == 200) {
+        const palette = JSON.parse(http.responseText).result;
+        const newColors = palette.map((c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`);
+        resolve(newColors);
+      }
+    };
+    http.open("POST", url, true);
+    http.send(JSON.stringify(data));
+  });
+}
+// ends here
 
 
   ngOnInit() {

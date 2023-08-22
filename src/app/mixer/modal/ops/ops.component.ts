@@ -19,7 +19,9 @@ export class OpsComponent implements OnInit {
   opnames:Array<string> = [];
   displaynames:Array<string> = [];
   myControl = new FormControl();
+  myControl1 = new FormControl();
   filteredOptions: Observable<string[]>;
+  taggedOptions: Observable<string[]>;
   
   constructor(public ops: OperationService, private dialog: MatDialog,
     private dialogRef: MatDialogRef<OpsComponent>,
@@ -30,10 +32,38 @@ export class OpsComponent implements OnInit {
     const allops = this.ops.ops.concat(this.ops.dynamic_ops);
     this.opnames = allops.map(el => el.name);
     this.displaynames = allops.map(el => el.displayname);
+    //add tags to display names
+    this.displaynames = this.displaynames.map((el, ndx) => {
+      if(allops[ndx].tags){
+        console.log("tags", allops[ndx].tags);
+        return el + " (" + allops[ndx].tags.join(", ") + ")";
+      }else{
+        return el;
+      }
+    });
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
+      
+    );
+    var matchedtag=[];
+    this.taggedOptions = this.myControl.valueChanges.pipe(
+      map(value => {
+        const inputWords = value.toLowerCase().split(' ').map(word => word.replace(/[^\w\s]/g, '')); // Remove punctuation
+        console.log("input words: ", inputWords)
+        const matchedOptions = allops.filter(op => {
+          if (op.tags) {
+            const lowerCaseTags = op.tags.map(tag => tag.toLowerCase());
+            return lowerCaseTags.some(tag => inputWords.some(word => tag.includes(word)));
+          }
+          return false;
+        });
+        return matchedOptions.map(op => {
+          const matchedTags = op.tags ? op.tags.filter(tag => inputWords.some(word => tag.toLowerCase().includes(word))) : [];
+          return op.name + (matchedTags.length > 0 ? ` (${matchedTags.join(', ')})` : '');
+        });
+      })
     );
   }
 

@@ -3,7 +3,7 @@ import { Subscription, Subject, fromEvent } from 'rxjs';
 import { Render } from '../model/render';
 import { Cell } from '../model/cell';
 import { DesignMode, Draft, Drawdown, Interlacement, Loom, LoomSettings, Operation, OpInput } from '../model/datatypes';
-import {cloneDeep, forEach, now} from 'lodash';
+import {cloneDeep, forEach, now, toLower} from 'lodash';
 import { FileService } from '../provider/file.service';
 import { SelectionComponent } from './selection/selection.component';
 import { DesignmodesService } from '../provider/designmodes.service';
@@ -22,10 +22,12 @@ import { LoomModal } from '../modal/loom/loom.modal';
 import utilInstance from '../model/util';
 import { OperationService } from '../provider/operation.service';
 
+
 @Component({
   selector: 'app-draftviewer',
   templateUrl: './draftviewer.component.html',
-  styleUrls: ['./draftviewer.component.scss']
+  styleUrls: ['./draftviewer.component.scss'],
+  
 })
 export class DraftviewerComponent implements OnInit {
 
@@ -257,6 +259,7 @@ export class DraftviewerComponent implements OnInit {
     // define the elements and context of the weave draft, threading, treadling, and tieups.
     this.canvasEl = <HTMLCanvasElement> document.getElementById('drawdown');
     this.draftContainer = <HTMLElement> document.getElementById('draft-container');
+    
 
 
   
@@ -287,10 +290,58 @@ export class DraftviewerComponent implements OnInit {
     this.rescale(this.render.getZoom());
 
   }
+  textInput1: string = "";
+  alliterationPattern: string = "";
+  
+  draft1: Draft;
+  loom1: Loom;
+  loom_settings1: LoomSettings;
 
+  onTextInputChanged(){
+    console.log("text input changed", this.textInput1);
+    // this.textInput1 = this.textInput1.toLowerCase();
+    this.onNewDraftLoaded(this.draft1, this.loom1, this.loom_settings1);
+  }
   //this is called anytime a new draft object is loaded. 
-  onNewDraftLoaded(draft: Draft, loom:Loom, loom_settings:LoomSettings) {  
+  onNewDraftLoaded(draft: Draft, loom:Loom, loom_settings:LoomSettings) { 
+    this.draft1 = draft;
+    this.loom1 = loom;
+    this.loom_settings1 = loom_settings; 
+    console.log("new draft loaded", draft.drawdown);
+    console.log("textinput1:",this.textInput1)
+    
 
+    // Modify the stringInput to set all occurrences of "p" to lowercase "p"
+    // this.textInput1 = 'Pied Piper picked a peck of pickled peppers';
+    // this.textInput1=  this.textInput1.toLowerCase()
+    // var alliterationPattern = "p"
+    console.log("this.textInput1:",this.textInput1);
+    // Parse the stringInput to an array of characters
+    const characters = this.textInput1.split('');
+    const alliterationPatterncharacters = this.alliterationPattern.split('');
+    // Update the draft.drawdown array based on the modified stringInput
+    console.log('draft.drawdown', draft.drawdown);
+    
+    draft.drawdown.forEach((item, index) => {
+      console.log('item:',item, index)
+      //iterate through characters and set the drawdown to be up if the character is a P
+      for (var i = 0; i < characters.length; i++) {
+        for (var j=0; j<alliterationPatterncharacters.length; j++){
+          if (characters[i] === alliterationPatterncharacters[j]) {
+            console.log("characters[index]", i);
+            if(i<item.length){ //change pixels only if index of alliteration pattern found is lower than number of cells in the draft row
+              console.log("item[i]",i, item[i]);
+              item[i].is_up = true;
+            } 
+          } else {
+            // console.log("item[i]",i, item[i]);
+            // if(i<item.length){
+            // item[i].is_up = false;
+            // }
+          }
+        }
+      }
+    });
 
     const frames = Math.max(numFrames(loom), loom_settings.frames);
     const treadles = Math.max(numTreadles(loom), loom_settings.treadles);
@@ -391,6 +442,7 @@ export class DraftviewerComponent implements OnInit {
    */
   @HostListener('mousedown', ['$event'])
   private onStart(event) {
+    console.log(event)
 
     const loom = this.tree.getLoom(this.id);
     const draft = this.tree.getDraft(this.id);
@@ -424,7 +476,7 @@ export class DraftviewerComponent implements OnInit {
 
 
       if(!event.target) return;
-
+      console.log('onstart')
       //reject out of bounds requests
       switch(event.target.id){
         case 'drawdown':

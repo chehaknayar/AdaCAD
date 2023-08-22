@@ -13,10 +13,12 @@
       (onPaste)="onPaste($event)"
       (onSelectionEnd)="onSelectionEnd()"
       ></app-selection>
-     
       
+      <!-- add textbox here -->
       
-
+      <input type="text" [(ngModel)]="textInput1" placeholder="Enter text input" class="search-bar" (input)="onTextInputChanged()">
+      <input type="text" [(ngModel)]="alliterationPattern" placeholder="Enter alliteration Pattern" class="search-bar" (input)="onTextInputChanged()">
+      
       <div class="warp-systems-container origin{{ws.selected_origin_option}} ">
         <div class="warp-systems-text origin{{ws.selected_origin_option}}" id="warp-systems-text">
          

@@ -315,7 +315,9 @@ export class TreeService {
       dirty: true, 
       draft: cloneDeep(draft),
       loom: null,
-      loom_settings: null
+      loom_settings: null,
+      text_input: '',
+      alliteration_pattern: '',
     }
 
     sd.dirty = true;
@@ -1416,6 +1418,20 @@ isValidIOTuple(io: IOTuple) : boolean {
       dn.draft.drawdown = drawdown;
       return Promise.resolve(dn.draft);
     })
+  }
+
+  getTextInput(id: number):String{
+    if(id === -1) return null;
+    const dn: DraftNode = <DraftNode> this.getNode(id);
+    if(dn === null || dn === undefined) return null;
+    return dn.text_input;
+  }
+
+  getAliterationPattern(id: number):String{
+    if(id === -1) return null;
+    const dn: DraftNode = <DraftNode> this.getNode(id);
+    if(dn === null || dn === undefined) return null;
+    return dn.alliteration_pattern;
   }
 
   getLoomSettings(id: number):LoomSettings{
