@@ -110,6 +110,12 @@ export class UploadFormComponent implements OnInit {
       { filename: 'pattern10.png', tags: ['fear', 'nervousness', 'distraction'], kind: 'pattern' },
       { filename: 'pattern11.png', tags: [ 'trust', 'acceptanc', 'optimism', 'serenity'], kind: 'pattern' },
       { filename: 'pattern12.png', tags: ['serenity', 'love', 'joy', 'affection'], kind: 'pattern' },
+      { filename: 'pattern13.png', tags: ['Cream', 'lollipop', 'ice cream', 'motion', 'drain', 'wave', 'dizziness', 'helicopter', 'whirlwind', 'hypnosis', 'video card', 'snail', 'washing machine', 'white', 'red'], kind: 'pattern' },
+      { filename: 'pattern14.png', tags: ['happiness', 'happy' ], kind: 'pattern' },
+      { filename: 'pattern15.png', tags: ['rough'], kind: 'pattern' },
+      { filename: 'pattern16.png', tags: ['smooth'], kind: 'pattern' },
+      { filename: 'pattern17.png', tags: ['rising', 'optimistic', 'successful', 'happy'], kind: 'pattern' },
+      { filename: 'pattern18.png', tags: ['completeness', 'gracefulness', 'playfulness', 'comforting', 'unity', 'protection', 'childlike', 'innocence', 'youth', 'feminity'], kind: 'pattern' },
       { filename: 'pattern21.png', tags: ['happy', 'color', 'vibrance'], kind: 'pattern' },
       { filename: 'active.png', tags: ['active'], kind: 'pattern' },
     ]

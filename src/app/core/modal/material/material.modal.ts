@@ -79,74 +79,138 @@ async updateColorPicker(colorKeyword: string, type: string) {
     sun :   '#fdd55e', //yellow
     warmth : '#fa8812', //orange
     serenity: '#6fa8dc', //blue
+    coolness: '#6fa8dc', //blue
   };
+  const colorMap1 = [
+    {color: '#3333CC',tags: ['calm']},
+    {color: '#CCCCCC',tags: ['clouds']},
+    {color: '#FF0000',tags: ['angry']},
+    {color: '#FFFF00',tags: ['happy']},
+    {color: '#00FF00',tags: ['fern leaves']},
+    {color: '#d2afff',tags: ['lavender flowers']},
+    {color: '#e57171',tags: ['heart']},
+    {color: '#fdd55e',tags: ['sun']},
+    {color: '#fa8812',tags: ['warmth']},
+    {color: '#6fa8dc',tags: ['serenity','coolness']},
+    
+  ]
 
   
   // Get the color value corresponding to the entered keyword
-  const keyword = colorKeyword.toLowerCase();
-  console.log("keyword",keyword)
-  const selectedColor = colorMap[keyword] || '#000000'; // Default to black if keyword not found
+  const inputText = colorKeyword.toLowerCase();
   
-  if (type == 'palette'){
-      //as soon as a keyword is found, colormind finds th epalette and creates materials for that palette colors instantly Part 1/////////////
-    if (colorMap[keyword]) {
-      const newColors = await this.getNewColorsFromAPI(); // Assuming this function returns a promise with the new colors
+  //split input text into words
+  const keywords = inputText.split(' ');
+  console.log("keyword",keywords)
+  //for each keyword, add a new shuttle with the color corresponding to that keyword
+  var filteredColor ;
+  keywords.forEach(keyword => {   
+    console.log("CHECK THIS:",colorMap1.filter(el => el.tags.includes(keyword)))
+    //check if keyword is in tags inside colorMap1 and return the color if it is
+    if(colorMap1.filter(el => el.tags.includes(keyword)).length > 0){
+      console.log("keyword found",keyword)
+      //return the color corresponding to the keyword
+      const selectedColor = colorMap1.filter(el => el.tags.includes(keyword))[0].color ; // Default to black if keyword not found
+      filteredColor = {keyword:keyword,color:selectedColor}
+      console.log("selected color",selectedColor)
+      console.log("filtered colors",filteredColor)
 
-      for (const color of newColors) {
-        this.newshuttle.color = color;
-        this.newshuttle.name = colorKeyword+'Palette';
+      //check if the color is already in the shuttle list
+      if(this.ms.getShuttles().filter(el => el.color == filteredColor.color).length > 0){
+        //check if keyword is already in the list
+        if(this.ms.getShuttles().filter(el => el.name == filteredColor.keyword).length > 0){
+          console.log("keyword already in the list")
+        }else{
+          this.newshuttle.color = filteredColor.color;
+          this.newshuttle.name = filteredColor.keyword;
+          this.addNewShuttle();
+          filteredColor = {}
+        }
+        console.log("color already in the list")
+      } else {
+        this.newshuttle.color = filteredColor.color;
+        this.newshuttle.name = filteredColor.keyword;
+        //add all tags for the color to the shuttle notes except the keyword
+        this.newshuttle.notes = "Other Tags: "+colorMap1.filter(el => el.color == filteredColor.color)[0].tags.filter(el => el != filteredColor.keyword).join(', ');
+        
         this.addNewShuttle();
+        filteredColor = {}
+        this.colorKeyword = colorKeyword; // Update the colorKeyword property in the component
+        const colorPickerInput = document.getElementById('colorPickerInput') as HTMLInputElement;
+        colorPickerInput.style.background = filteredColor;
+        console.log(colorPickerInput.style.background);
+        console.log(filteredColor)
       }
+      
     }
-  //ends here/////////////
-  }
+   
+    
+  });
+  // const selectedColor = colorMap[keyword] || '#000000'; // Default to black if keyword not found
+  //return color if keyword is in tags inside colorMap1
+  
+  
+  // if (type == 'palette'){
+  //     //as soon as a keyword is found, colormind finds th epalette and creates materials for that palette colors instantly Part 1/////////////
+  //   if (colorMap[keyword]) {
+  //     const newColors = await this.getNewColorsFromAPI(); // Assuming this function returns a promise with the new colors
+
+  //     for (const color of newColors) {
+  //       this.newshuttle.color = color;
+  //       this.newshuttle.name = colorKeyword+'Palette';
+  //       this.addNewShuttle();
+  //     }
+  //   }
+  // //ends here/////////////
+  // }
   
 
   //colormind api inserts new shuttle with the color given for a keyword, when the keyword is found //////////////////
-  if(colorMap[keyword]){
-    var url = "http://colormind.io/api/";
-    var data = {
-      model : "default",
-      input : [this.hexToRgb(this.newshuttle.color),"N","N","N"]
-    }
-    var http = new XMLHttpRequest();
-    var newColors = [];
-    http.onreadystatechange = function() {
-      if(http.readyState == 4 && http.status == 200) {
-        var palette = JSON.parse(http.responseText).result;
-        console.log('response:',palette);
-        for (var i = 0; i < palette.length; i++) {
-          var c = palette[i];
-          newColors.push("rgb("+c[0]+","+c[1]+","+c[2]+")");
-        }
-      }
-  }
+  // if(colorMap[keyword])
+  // {
+  //   var url = "http://colormind.io/api/";
+  //   var data = {
+  //     model : "default",
+  //     input : [this.hexToRgb(this.newshuttle.color),"N","N","N"]
+  //   }
+  //   var http = new XMLHttpRequest();
+  //   var newColors = [];
+  //   http.onreadystatechange = function() {
+  //     if(http.readyState == 4 && http.status == 200) {
+  //       var palette = JSON.parse(http.responseText).result;
+  //       console.log('response:',palette);
+  //       for (var i = 0; i < palette.length; i++) {
+  //         var c = palette[i];
+  //         newColors.push("rgb("+c[0]+","+c[1]+","+c[2]+")");
+  //       }
+  //     }
+  //   }
   
   
-  // Set the current shuttle's color property to the selected color
-  console.log("neww shuttle",this.newshuttle)
-  if (this.newshuttle) {
-      this.newshuttle.color = selectedColor;
-      this.newshuttle.name = colorKeyword;
-  }
-  console.log("new shuttle",this.newshuttle.color,this.hexToRgb(this.newshuttle.color))
- //to create a new shuttle of that color
- if(type == 'palette'){
-  this.addNewShuttle();
- }
-  
-  http.open("POST", url, true);
-  http.send(JSON.stringify(data));
-  }
+  //   // Set the current shuttle's color property to the selected color
+  //   console.log("neww shuttle",this.newshuttle)
+  //   if (this.newshuttle) {
+  //       this.newshuttle.color = filteredColorsColor;
+  //       this.newshuttle.name = colorKeyword;
+  //   }
+  //   console.log("new shuttle",this.newshuttle.color,this.hexToRgb(this.newshuttle.color))
+  //   //to create a new shuttle of that color
+  //   if(type == 'palette'){
+  //     this.addNewShuttle();
+  //   }
+    
+  //   http.open("POST", url, true);
+  //   http.send(JSON.stringify(data));
+  // }
   // // ends here
   
   //
+  // for (const color of filteredColors) {
+    
+  // }
+  
   // Update the color picker's background to reflect the new color
-  this.colorKeyword = colorKeyword; // Update the colorKeyword property in the component
-  const colorPickerInput = document.getElementById('colorPickerInput') as HTMLInputElement;
-  colorPickerInput.style.background = selectedColor;
-  console.log(colorPickerInput.style.background);
-  console.log(selectedColor)
+  
 
   // Emit the change event to update the rendering
   this.onChange.emit();
@@ -154,26 +218,26 @@ async updateColorPicker(colorKeyword: string, type: string) {
 }
 
 //as soon as a keyword is found, colormind finds th epalette and creates materials for that palette colors instantly PArt 2//////////
-async getNewColorsFromAPI(): Promise<string[]> {
-  const url = "http://colormind.io/api/";
-  const data = {
-    model: "default",
-    input: [this.hexToRgb(this.newshuttle.color), "N", "N", "N"],
-  };
+// async getNewColorsFromAPI(): Promise<string[]> {
+//   const url = "http://colormind.io/api/";
+//   const data = {
+//     model: "default",
+//     input: [this.hexToRgb(this.newshuttle.color), "N", "N", "N"],
+//   };
 
-  return new Promise((resolve, reject) => {
-    const http = new XMLHttpRequest();
-    http.onreadystatechange = function () {
-      if (http.readyState == 4 && http.status == 200) {
-        const palette = JSON.parse(http.responseText).result;
-        const newColors = palette.map((c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`);
-        resolve(newColors);
-      }
-    };
-    http.open("POST", url, true);
-    http.send(JSON.stringify(data));
-  });
-}
+//   return new Promise((resolve, reject) => {
+//     const http = new XMLHttpRequest();
+//     http.onreadystatechange = function () {
+//       if (http.readyState == 4 && http.status == 200) {
+//         const palette = JSON.parse(http.responseText).result;
+//         const newColors = palette.map((c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`);
+//         resolve(newColors);
+//       }
+//     };
+//     http.open("POST", url, true);
+//     http.send(JSON.stringify(data));
+//   });
+// }
 // ends here
 
 
